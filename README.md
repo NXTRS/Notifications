@@ -30,6 +30,11 @@ Docker Desktop must be installed on your system.
 1. Run the terminal command 
 > docker compose up -d
 2. Keycloak will start on port **8082**, default user/pass is admin/secureAF123
+   From the Keycloak UI:
+   1. Configure a realm called NotificationRealm
+   2. Create a client (the Postman collection uses a client called: luciantestclient)
+   3. Create a user ( in Postman it's called lucianstandarduser)
+   4. You will need the *client_secret* of the created client as well as the *username* and *password* of the created user
 3. Run the spring boot application. It will start on port **8081**.
 4. The application db schema is generated automatically by spring
    via the *"spring.jpa.generate-ddl: true"* property
