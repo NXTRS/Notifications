@@ -19,7 +19,7 @@ instance which has the correct open subscription (based on user id).
 If a notification is read from Kafka but the owning user doesn't have an open websocket subscription, it goes in the
 DB and is marked as unread, and there is another graphQL endpoint that servers all unread notifications.
 
-This app is securing by spring security via the OAuth 2.0 protocol, 
+This app is securing by Spring Security via the OAuth 2.0 protocol, 
 and uses Keycloak as identity provider / auth server.
 
 Dependencies (Keycloak, Kafka, Postgres, redis) are provided in a docker container.
