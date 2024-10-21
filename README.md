@@ -27,7 +27,7 @@ Dependencies (Keycloak, Kafka, Postgres, redis) are provided in a docker contain
 ## How to run locally
 Docker Desktop must be installed on your system.
 
-1. Run the terminal command (for example, from the Intellij)
+1. Run the terminal command 
 > docker compose up -d
 2. Keycloak will start on port **8082**, default user/pass is admin/secureAF123
 3. Run the spring boot application. It will start on port **8081**.
