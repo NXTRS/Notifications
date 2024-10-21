@@ -3,12 +3,13 @@
 This application offers a graphQL websocket based API which has a subscription functionality to receive 
 notifications in real time from a Kafka topic. Notifications are sent by another application.
 
-This app also makes use of reactive redis and redis pub/sub, and together with the NotificationService app is a proof of concept to solve the following problem:
+This app also makes use of reactive redis and redis pub/sub, and together with the TransactionService
+app is a proof of concept to solve the following problem:
    1. The NotificationService is scaled in a cloud environment, having multiple instances.
-   2. An end user opens a subscription (from Postman or browser/FE app) 
-      to a single instance of NotificationService.
-   3. A message is received on the kafka topic, but is read by another app instance.
-   4. The message disappears from the Kafka topic, but the user never sees it despite having 
+   2. An end user opens a subscription (from Postman or browser/FE) 
+      to a single instance of NotificationService (let's call it instance 1).
+   3. A message is received on the kafka topic, but is read by another app instance (instance 2).
+   4. The message disappears from the Kafka topic and is stored in the DB, but the user never sees it despite having 
       an open subscription.
 
 Redis pub/sub acts as a distributed cache - every instance of NotificationService will push the message 
