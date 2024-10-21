@@ -1,0 +1,16 @@
+spring:
+    datasource:
+        url: jdbc:tc:postgresql:15.2:///test-postgres
+    kafka:
+        enabled: true
+        producer:
+            key-serializer: org.apache.kafka.common.serialization.StringSerializer
+            value-serializer: org.apache.kafka.common.serialization.StringSerializer
+        consumer:
+            auto-offset-reset: earliest
+            group-id: test-group
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    issuer-uri: http://localhost/

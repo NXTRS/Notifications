@@ -1,0 +1,71 @@
+{
+	"info": {
+		"_postman_id": "9f8b3f8f-0bfe-4897-a70b-3d4bdd154f9d",
+		"name": "NotificationsAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "243225"
+	},
+	"item": [
+		{
+			"name": "Get access token",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "luciantestclient",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "8n6HIgiS0CD9RKL8FMuH9KmhRnoQcTKr",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "lucianstandarduser",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "2secure4me",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "openid",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8082/realms/NotificationRealm/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"realms",
+						"NotificationRealm",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

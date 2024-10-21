@@ -1,0 +1,17 @@
+schema {
+    query: Query
+    subscription: Subscription
+}
+
+type Query {
+    getUnreadNotifications: [Notification!]!
+}
+
+type Subscription {
+    subscribeToTransactionNotifications: Notification!
+}
+
+type Notification {
+    transactionId: Int!
+    amount: Float!
+}
