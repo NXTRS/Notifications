@@ -1,7 +1,8 @@
 # NotificationService
 
-This application offers a graphQL websocket based API which has a subscription functionality to receive 
-notifications in real time from a Kafka topic. Notifications are sent by another application.
+This application offers a graphQL websocket based API which offers a subscription functionality to users. 
+Users surbscribe to receive notifications. In the back end, the notifications are received in real time from 
+another application (TransactionService) via a Kafka topic.
 
 This app also makes use of reactive redis and redis pub/sub, and together with the TransactionService
 app is a proof of concept to solve the following problem:
