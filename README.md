@@ -36,10 +36,14 @@ Docker Desktop must be installed on your system.
    2. Create a client (the Postman collection uses a client called: luciantestclient)
    3. Create a user ( in Postman it's called lucianstandarduser)
    4. You will need the *client_secret* of the created client as well as the *username* and *password* of the created user
-3. Run the spring boot application. It will start on port **8081**.
-4. The application db schema is generated automatically by spring
+3. Before starting the app, you need to run the
+   > docker compose up -d
+
+   command in the Transaction project as well (https://github.com/NXTRS/Transactions/) because that container hosts the Kafka used by this application.
+4. Run the spring boot application. It will start on port **8081**.
+5. The application db schema is generated automatically by spring
    via the *"spring.jpa.generate-ddl: true"* property
-5. There is a Postman collection that can be imported to test the endpoints
+6. There is a Postman collection that can be imported to test the endpoints
 
 ## Integration tests
 Integration tests are running by making use of spring testcontainers, which spins up its own
