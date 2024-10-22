@@ -30,8 +30,8 @@ import java.net.URI;
 import java.security.KeyPair;
 import java.util.Date;
 
-import static com.example.notificationservice.config.AuthenticationTestUtility.createJWTToken;
-import static com.example.notificationservice.config.AuthenticationTestUtility.mockOauth2JwksEndpoint;
+import static com.example.notificationservice.config.AuthenticationTestUtils.mockJWTToken;
+import static com.example.notificationservice.config.AuthenticationTestUtils.mockOauth2JwksEndpoint;
 import static io.jsonwebtoken.impl.crypto.RsaProvider.generateKeyPair;
 
 @TestPropertySource(properties = {"spring.config.additional-location=classpath:application-test.yml"})
@@ -77,8 +77,8 @@ public abstract class BaseTest {
     @BeforeAll
     void before() {
         keyPair = generateKeyPair(2048);
-        token = createJWTToken(keyPair.getPrivate(), USER_1, new Date(System.currentTimeMillis() + 60 * 1000));
-        expiredToken = createJWTToken(keyPair.getPrivate(), USER_1, new Date(System.currentTimeMillis() - 1));
+        token = mockJWTToken(keyPair.getPrivate(), USER_1, new Date(System.currentTimeMillis() + 60 * 1000));
+        expiredToken = mockJWTToken(keyPair.getPrivate(), USER_1, new Date(System.currentTimeMillis() - 1));
     }
 
     @BeforeEach

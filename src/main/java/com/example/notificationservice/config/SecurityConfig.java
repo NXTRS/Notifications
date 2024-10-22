@@ -39,7 +39,8 @@ class SecurityConfig {
 
     @Bean
     public SecurityFilterChain resourceServerFilterChain(HttpSecurity http) throws Exception {
-        // websocket connections must be excluded because they cannot have security headers, see WebSocketAuthenticationInterceptor
+        // websocket connections must be excluded because they cannot have security headers,
+        // see instead WebSocketAuthenticationInterceptor
         http.authorizeHttpRequests(authorize -> authorize.requestMatchers(graphQlProperties.getWebsocket().getPath()).permitAll())
                 .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));

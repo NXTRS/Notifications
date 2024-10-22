@@ -19,9 +19,10 @@ import org.springframework.util.StringUtils;
 import reactor.core.publisher.Mono;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
+
+import static java.util.Optional.ofNullable;
 
 /**
  * This is an interceptor needed to authenticate websockets connections.
@@ -58,10 +59,10 @@ public class WebSocketAuthenticationInterceptor implements WebSocketGraphQlInter
             var bearerTokenAuthenticationToken = new BearerTokenAuthenticationToken(token);
             var authentication = authenticationProvider.authenticate(bearerTokenAuthenticationToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            log.info("connection_init successful; sessionId: [{}], userId: [{}], user-agent: {}",
+            log.info("connection_init successful; sessionId: [{}], userId: [{}], user-agent: [{}]",
                     sessionInfo.getId(), authentication.getName(), sessionHeaders.get("user-agent"));
         } catch (Exception e) {
-            log.error("Exception on connection_init; sessionId: [{}], user-agent: {}",
+            log.error("Exception on connection_init; sessionId: [{}], user-agent: [{}]",
                     sessionInfo.getId(), sessionHeaders.get("user-agent"), e);
             SecurityContextHolder.getContext().setAuthentication(null);
             return Mono.error(new OAuth2AuthenticationException(new OAuth2Error(OAuth2ErrorCodes.ACCESS_DENIED)));
@@ -71,11 +72,12 @@ public class WebSocketAuthenticationInterceptor implements WebSocketGraphQlInter
     }
 
     private String resolveTokenFromConnectionInitPayload(Map<String, Object> connectionInitPayload) {
-        //this will transform the payload in one that ignores case, so that both keys 'Authorization' and 'authorization' can be accepted
+        //this will transform the payload in one that ignores case,
+        // so that both keys 'Authorization' and 'authorization' can be accepted
         var caseInsensitiveConnectionInitPayload = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         caseInsensitiveConnectionInitPayload.putAll(connectionInitPayload);
 
-        var authorization = Optional.ofNullable(caseInsensitiveConnectionInitPayload.get(HttpHeaders.AUTHORIZATION))
+        var authorization = ofNullable(caseInsensitiveConnectionInitPayload.get(HttpHeaders.AUTHORIZATION))
                 .map(Object::toString)
                 .orElseThrow(() -> new OAuth2AuthenticationException("Missing authorization token"));
 

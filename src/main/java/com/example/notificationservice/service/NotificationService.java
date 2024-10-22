@@ -35,7 +35,7 @@ public class NotificationService {
     @KafkaListener(topics = "${spring.kafka.topic}", groupId = "my-group-id")
     public void receiveAndPublishNotifications(@Payload String message) throws JsonProcessingException {
         var transaction = mapper.readValue(message, TransactionDto.class);
-        log.trace("Received event with payload [{}]", transaction.toString());
+        log.info("Received event with payload: [{}]", transaction.toString());
         var notificationEntity = NotificationEntity
                 .builder()
                 .userId(transaction.userId())
@@ -47,7 +47,7 @@ public class NotificationService {
 
         notificationRepository.save(notificationEntity);
         redisTemplate.convertAndSend(channelTopic.getTopic(), notificationEntity).subscribe();
-        log.info("Emitted new transaction event with id [{}] for user with id [{}]",
+        log.info("Emitted new transaction event with id [{}] for user: [{}]",
                 notificationEntity.getTransactionId(), notificationEntity.getUserId());
     }
 
@@ -59,7 +59,7 @@ public class NotificationService {
         }
 
         notificationRepository.saveAll(notificationList);
-        log.trace("Retrieved and read [{}] notifications for user with id [{}]", notificationList.size(), userId);
+        log.info("Retrieved and read [{}] notifications for user: [{}]", notificationList.size(), userId);
 
         return notificationList.stream()
                 .map(notificationEntity -> new NotificationDto(notificationEntity.getTransactionId(), notificationEntity.getAmount()) )

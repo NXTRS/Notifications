@@ -18,8 +18,8 @@ import static org.mockserver.matchers.Times.exactly;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 
-public class AuthenticationTestUtility {
-    public static String createJWTToken(PrivateKey privateKey, String userId, Date expiration) {
+public class AuthenticationTestUtils {
+    public static String mockJWTToken(PrivateKey privateKey, String userId, Date expiration) {
         var claims = new HashMap<String, Object>();
         claims.put("iss", "http://localhost/");
 
@@ -34,9 +34,9 @@ public class AuthenticationTestUtility {
     }
 
     /**
-     * Mocks a successful response when the Keycloak resource server should be called to validate a token for any
+     * Mocks a successful response when the Keycloak server should be called to validate a token for any
      * request
-     * Only useful for request that have a token
+     * Only useful for requests that have a token
      */
     public static void mockOauth2JwksEndpoint(KeyPair keyPair, MockServerClient client) {
         var privateKey = keyPair.getPrivate();

@@ -30,14 +30,14 @@ public class NotificationController {
 
     @QueryMapping("getUnreadNotifications")
     public List<NotificationDto> getUnreadNotifications(Principal principal) {
-        log.info("Get unread notifications for user with id [{}]", principal.getName());
+        log.info("Received a get unread notifications request for user: [{}]", principal.getName());
 
         return notificationService.getUnreadNotifications(principal.getName());
     }
 
     @SubscriptionMapping("subscribeToTransactionNotifications")
     public Flux<NotificationDto> subscribeToTransactionNotifications(Principal principal) {
-        log.info("Notifications subscription for user with id [{}]", principal.getName());
+        log.info("Received a subscription request for user: [{}]", principal.getName());
 
         return container.receive(channelTopic)
                 .map(ReactiveSubscription.Message::getMessage)

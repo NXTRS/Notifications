@@ -18,7 +18,7 @@ public class NotificationsIntegrationTests extends BaseTest {
     private final String QUERY = "query {getUnreadNotifications{transactionId, amount}}";
 
     @Test
-    void getUnreadNotifications() {
+    void getUnreadNotifications_shouldSucced() {
         sendKafkaEventForUser(1L, USER_1, 105.5);
 
         await().untilAsserted(() -> {
@@ -28,7 +28,7 @@ public class NotificationsIntegrationTests extends BaseTest {
     }
 
     @Test
-    void getUnreadNotificationsNoToken() {
+    void getUnreadNotificationsNoToken_shouldFail() {
         assertThatThrownBy(() ->
                 this.webGraphQlTester
                         .document(QUERY)
@@ -37,7 +37,7 @@ public class NotificationsIntegrationTests extends BaseTest {
     }
 
     @Test
-    void getUnreadNotificationsIncorrectToken() {
+    void getUnreadNotificationsIncorrectToken_shouldFail() {
         assertThatThrownBy(() ->
                 this.webGraphQlTester.mutate()
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + "invalid token")
@@ -48,7 +48,7 @@ public class NotificationsIntegrationTests extends BaseTest {
     }
 
     @Test
-    void getUnreadNotificationsExpiredToken() {
+    void getUnreadNotificationsExpiredToken_shouldFail() {
         assertThatThrownBy(() ->
                 this.webGraphQlTester.mutate()
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + expiredToken)
@@ -96,7 +96,7 @@ public class NotificationsIntegrationTests extends BaseTest {
     }
 
     private Flux<NotificationDto> doSubscribeToTransactionNotifications() {
-                return this.webSocketGraphQlClient
+        return this.webSocketGraphQlClient
                 .mutate()
                 .interceptor(new WebsocketClientTestInterceptor(token, HttpHeaders.AUTHORIZATION))
                 .build()
