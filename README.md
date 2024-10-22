@@ -1,7 +1,8 @@
 # NotificationService
 
-This application offers a graphQL websocket based API which has a subscription functionality to receive 
-notifications in real time from a Kafka topic. Notifications are sent by another application.
+This application offers a graphQL websocket based API which offers a subscription functionality to users. 
+Users surbscribe to receive notifications. In the back end, the notifications are received in real time from 
+another application (TransactionService) via a Kafka topic.
 
 This app also makes use of reactive redis and redis pub/sub, and together with the TransactionService
 app is a proof of concept to solve the following problem:
@@ -35,10 +36,14 @@ Docker Desktop must be installed on your system.
    2. Create a client (the Postman collection uses a client called: luciantestclient)
    3. Create a user ( in Postman it's called lucianstandarduser)
    4. You will need the *client_secret* of the created client as well as the *username* and *password* of the created user
-3. Run the spring boot application. It will start on port **8081**.
-4. The application db schema is generated automatically by spring
+3. Before starting the app, you need to run the
+   > docker compose up -d
+
+   command in the Transaction project as well (https://github.com/NXTRS/Transactions/) because that container hosts the Kafka used by this application.
+4. Run the spring boot application. It will start on port **8081**.
+5. The application db schema is generated automatically by spring
    via the *"spring.jpa.generate-ddl: true"* property
-5. There is a Postman collection that can be imported to test the endpoints
+6. There is a Postman collection that can be imported to test the endpoints
 
 ## Integration tests
 Integration tests are running by making use of spring testcontainers, which spins up its own
