@@ -10,8 +10,8 @@ app is a proof of concept to solve the following problem:
    2. An end user opens a subscription (from Postman or browser/FE) 
       to a single instance of NotificationService (let's call it instance 1).
    3. A message is received on the kafka topic, but is read by another app instance (instance 2).
-   4. The message disappears from the Kafka topic and is stored in the DB by instance 1, but the user never sees it despite having 
-      an open subscription, because the subscription is connected to instance 2.
+   4. The message disappears from the Kafka topic and is stored in the DB by instance 2, but the user never sees it despite having 
+      an open subscription, because the subscription is connected to instance 1.
 
 Redis pub/sub acts as a distributed cache - every instance of NotificationService will push the message 
 to redis after reading it from the Kafka topic, and redis will serve it only to the specific NotificationService 
